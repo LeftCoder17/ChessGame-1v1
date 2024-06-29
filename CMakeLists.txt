@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(ChessApp VERSION 1.0 LANGUAGES CXX)
+project(ChessGame_1v1 VERSION 1.0 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -19,7 +19,7 @@ set(PROJECT_SOURCES
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(ChessApp
+    qt_add_executable(ChessGame_1v1
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         libs/chessboardwidget.h libs/chessboardwidget.cpp
@@ -34,23 +34,23 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     )
 endif()
 
-target_link_libraries(ChessApp PRIVATE 
+target_link_libraries(ChessGame_1v1 PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Svg
 )
 
-set_target_properties(ChessApp PROPERTIES
+set_target_properties(ChessGame_1v1 PROPERTIES
     ${BUNDLE_ID_OPTION}
     WIN32_EXECUTABLE TRUE
 )
 
 include(GNUInstallDirs)
-install(TARGETS ChessApp
+install(TARGETS ChessGame_1v1
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(ChessApp)
+    qt_finalize_executable(ChessGame_1v1)
 endif()
