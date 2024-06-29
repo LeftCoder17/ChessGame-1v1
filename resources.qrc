@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>libs/images/b_bishop.svg</file>
+        <file>libs/images/b_king.svg</file>
+        <file>libs/images/b_knight.svg</file>
+        <file>libs/images/b_pawn.svg</file>
+        <file>libs/images/b_queen.svg</file>
+        <file>libs/images/b_rook.svg</file>
+        <file>libs/images/w_bishop.svg</file>
+        <file>libs/images/w_king.svg</file>
+        <file>libs/images/w_knight.svg</file>
+        <file>libs/images/w_pawn.svg</file>
+        <file>libs/images/w_queen.svg</file>
+        <file>libs/images/w_rook.svg</file>
+        <file>libs/images/portada.jpg</file>
+    </qresource>
+</RCC>
