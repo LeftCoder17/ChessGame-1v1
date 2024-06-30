@@ -1,11 +1,11 @@
 #include "managebits.h"
 
-uint64_t set_nth_bit(uint64_t& bits, uint8_t n, bool bitValue)
+void set_nth_bit(uint64_t& bits, uint8_t n, bool bitValue)
 {
     if (n >= 64)
     {
         //std::cerr << "Bit out of range set" << std::endl;
-        return bits;
+        return;
     }
     if (bitValue)
     {
