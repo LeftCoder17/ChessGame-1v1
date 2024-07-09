@@ -4,10 +4,6 @@ This chess game is implemented with C++ using Qt. It consists of a 1v1 game, wit
 
 <img src="game_capture.png" alt="Capture of the game" width="500">
 
-## Bugs to fix
-1. It is allowed to castle despite having an opponent piece that points to the "middle square" of the castle.
-
-
 
 ## Further developement
 1. Ending the game after three moves repetition.

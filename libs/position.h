@@ -32,7 +32,10 @@ public:
     bool is_move_legal(int initialSquare, int finalSquare);
 
     // Checks whether the king is in check or not
-    bool king_in_check();
+    bool king_in_check(uint64_t kingPosition);
+
+    // Checks whether a castle is ilegal or not
+    bool ilegal_castle(int initialSquare, int finalSquare);
 
     // Move a piece in the position
     void move_piece(int initialSquare, int finalSquare);

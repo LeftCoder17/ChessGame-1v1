@@ -627,18 +627,8 @@ uint64_t king_pseudo_legal_moves(uint8_t piece, int sq,
         !get_nth_bit(opponentSquares, sq + right*2))
     {
         set_nth_bit(pseudoLegalMoves, sq + right*2, 1);
-        // Check it is not in check or checks in the middle
-        for (int k = 0; k < 64; k++)
-        {
-            if (get_nth_bit(lastLegalMoves[k], sq) ||
-                get_nth_bit(lastLegalMoves[k], sq + right) ||
-                get_nth_bit(lastLegalMoves[k], sq + right*2))
-            {
-                set_nth_bit(pseudoLegalMoves, sq + right*2, 0);
-                break;
-            }
-        }
     }
+
     if (canCastleQueenside &&
         !get_nth_bit(colorSquares, sq + left) &&
         !get_nth_bit(colorSquares, sq + left*2) &&
@@ -648,18 +638,6 @@ uint64_t king_pseudo_legal_moves(uint8_t piece, int sq,
         !get_nth_bit(opponentSquares, sq + left*3))
     {
         set_nth_bit(pseudoLegalMoves, sq + left*2, 1);
-        // Check it is not in check or checks in the middle
-        for (int k = 0; k < 64; k++)
-        {
-            if (get_nth_bit(lastLegalMoves[k], sq) ||
-                get_nth_bit(lastLegalMoves[k], sq + left) ||
-                get_nth_bit(lastLegalMoves[k], sq + left*2) ||
-                get_nth_bit(lastLegalMoves[k], sq + left*3))
-            {
-                set_nth_bit(pseudoLegalMoves, sq + left*2, 0);
-                break;
-            }
-        }
     }
     return pseudoLegalMoves;
 }

@@ -245,17 +245,23 @@ bool Position::is_move_legal(int initialSquare, int finalSquare)
 {
     Position tempPosition = *this;
     tempPosition.move_piece(initialSquare, finalSquare);
-    if (tempPosition.king_in_check())
+    uint64_t kingPosition = tempPosition.m_whiteTurn ? tempPosition.m_blackKingSquare : tempPosition.m_whiteKingSquare;
+    if (tempPosition.king_in_check(kingPosition))
     {
         m_inCheck = true;
         return false;
     }
+
+    if (tempPosition.ilegal_castle(initialSquare, finalSquare))
+    {
+        return false;
+    }
+
     return true;
 }
 
-bool Position::king_in_check()
+bool Position::king_in_check(uint64_t kingPosition)
 {
-    uint64_t kingPosition = m_whiteTurn ? m_blackKingSquare : m_whiteKingSquare;
     uint8_t colorTurn = m_whiteTurn ? white : black;
     uint64_t colorSquares = m_whiteTurn ? m_whiteSquares : m_blackSquares;
     uint64_t opponentSquares = m_whiteTurn ? m_blackSquares : m_whiteSquares;
@@ -280,6 +286,49 @@ bool Position::king_in_check()
                 default: break;
             }
             if (kingPosition & pseudoLegalMoves)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+bool Position::ilegal_castle(int initialSquare, int finalSquare)
+{
+    uint8_t piece = m_squares[finalSquare] & type_mask;
+    if (piece == king)
+    {
+        if (finalSquare - initialSquare == 2)  // Kingside castle
+        {
+            uint64_t kingPosition1 = 0;
+            uint64_t kingPosition2 = 0;
+            uint64_t kingPosition3 = 0;
+            set_nth_bit(kingPosition1, initialSquare, 1);
+            set_nth_bit(kingPosition2, initialSquare + 1, 1);
+            set_nth_bit(kingPosition3, initialSquare + 2, 1);
+            if (king_in_check(kingPosition1) ||
+                king_in_check(kingPosition2) ||
+                king_in_check(kingPosition3))
+            {
+                return true;
+            }
+        }
+        else if (initialSquare - finalSquare == 2)  // Queenside castle
+        {
+            uint64_t kingPosition1 = 0;
+            uint64_t kingPosition2 = 0;
+            uint64_t kingPosition3 = 0;
+            uint64_t kingPosition4 = 0;
+            set_nth_bit(kingPosition1, initialSquare, 1);
+            set_nth_bit(kingPosition2, initialSquare - 1, 1);
+            set_nth_bit(kingPosition3, initialSquare - 2, 1);
+            set_nth_bit(kingPosition4, initialSquare - 3, 1);
+            if (king_in_check(kingPosition1) ||
+                king_in_check(kingPosition2) ||
+                king_in_check(kingPosition3) ||
+                king_in_check(kingPosition4))
             {
                 return true;
             }
