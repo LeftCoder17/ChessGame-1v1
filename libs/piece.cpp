@@ -44,9 +44,12 @@ uint64_t pawn_pseudo_legal_moves(uint8_t piece, int sq,
         }
     } else {
         // 2.4. Advance pawn
-        if (!get_nth_bit(opponentSquares, sq + down)) {
+        if (!get_nth_bit(opponentSquares, sq + down) &
+            !get_nth_bit(colorSquares, sq + down))
+        {
             set_nth_bit(pseudoLegalMoves, sq + down, 1);
-            if ((sq2row_8 == 1) & !get_nth_bit(opponentSquares, sq + down*2)) {
+            if ((sq2row_8 == 1) & !get_nth_bit(opponentSquares, sq + down*2) &
+                !get_nth_bit(colorSquares, sq + down*2)) {
                 set_nth_bit(pseudoLegalMoves, sq + down*2, 1);
             }
         }
